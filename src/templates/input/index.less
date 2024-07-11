@@ -1,0 +1,50 @@
+.input {
+  background-color: @primary;
+  border: none;
+  outline: none;
+  padding: 7px 12px;
+  color: #ffffff;
+  font-size: 15px;
+  border-radius: 10px;
+  max-width: 394px;
+  width: 100vw;
+  .chat__header & {
+    display: block;
+    width: 100%;
+  }
+  .chat__workflow & {
+    width: 100%;
+    display: block;
+    max-width: unset;
+  }
+  &::placeholder {
+    color: #bbb;
+  }
+  &__ {
+    &text {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #ffffff;
+      margin-bottom: 15px;
+      .profile & {
+        width: 300px;
+        margin-bottom: 0;
+      }
+    }
+    &wrap {
+      margin-bottom: 32px;
+      cursor: pointer;
+      .page--chats & {
+        display: flex;
+        width: 100%;
+        margin-bottom: 0;
+      }
+      .profile & {
+        margin-bottom: 12px;
+        align-items: center;
+        display: flex;
+      }
+    }
+  }
+}

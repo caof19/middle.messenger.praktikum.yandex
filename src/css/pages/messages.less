@@ -1,0 +1,46 @@
+.messages {
+  padding: 16px;
+  padding-top: 67px;
+  max-height: calc(100vh - 55px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 32px;
+  &__ {
+    &avatar {
+      .sq(32px);
+      background-color: @placeholder;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        max-height: 100%;
+      }
+    }
+    &item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      &--self {
+        flex-direction: row-reverse;
+      }
+    }
+    &val {
+      background-color: #132942;
+      border-radius: 12px;
+      color: #ffffff;
+      padding: 7px 25px;
+      font-size: 15px;
+      a {
+        color: @accent;
+        text-decoration: underline;
+      }
+      p+p {
+        margin-top: 8px;
+      }
+    }
+  }
+}
