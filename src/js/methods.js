@@ -7,3 +7,4 @@ export function toggleClass(selectorElem, className) {
     elem.classList.add(className)
   }
 }
+
