@@ -29,8 +29,11 @@
 Страницы сайта (даже урл интересный урвал)
 
 https://deploy--superwebchat.netlify.app/ - авторизация (она же главная)
+
 https://deploy--superwebchat.netlify.app/register - страница регистрации
+
 https://deploy--superwebchat.netlify.app/chats - страница чатов/рабочей области и профиля
+
 https://deploy--superwebchat.netlify.app/404 и https://deploy--superwebchat.netlify.app/50x
 
 Чтоб открыть профиль нужно клацнуть на иконку слева от поиска (который находится в левом верхнем углу)
