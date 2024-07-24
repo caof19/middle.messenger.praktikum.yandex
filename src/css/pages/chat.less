@@ -1,0 +1,46 @@
+.chat {
+  display: flex;
+  &__ {
+    &side {
+      width: 33.3%;
+      background-color: @second;
+      height: 100vh;
+      max-height: 100vh;
+      overflow: auto;
+      .disable-scrollbar();
+    }
+    &workflow {
+      width: calc(100% - 33.3%);
+    }
+    &header {
+      display: flex;
+      padding: 9px 32px;
+      align-items: center;
+      gap: 28px;
+    }
+    &avatar {
+      display: block;
+      .sq(32px);
+      border-radius: 50%;
+      background-color: @placeholder;
+      user-select: none;
+      cursor: pointer;
+    }
+    &workflow {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    &inputs {
+      height: 55px;
+      display: flex;
+      align-items: center;
+      margin-top: auto;
+      margin-bottom: 0;
+      background-color: @second;
+      padding: 0 16px;
+      gap: 28px;
+    }
+  }
+}
+

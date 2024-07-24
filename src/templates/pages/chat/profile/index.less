@@ -1,0 +1,45 @@
+.profile {
+  position: absolute;
+  top: 0;
+  background-color: @second;
+  left: 0;
+  width: 100%;
+  padding: 24px 32px;
+  transform: translateY(calc(-100% + 55px));
+  transition: transform .5s;
+  padding-bottom: 64px;
+  &--active {
+    transform: translateY(0);
+  }
+  &__ {
+    &top {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    &avatar {
+      .sq(128px);
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    &row {
+      display: flex;
+      width: 100%;
+    }
+    &info {
+      width: 50%;
+      padding-right: 32px;
+      border-right: 1px solid @accent;
+    }
+    &pass {
+      width: 50%;
+      padding-left: 32px;
+    }
+    &btn {
+      display: block;
+      text-align: right;
+      margin-top: 52px;
+    }
+  }
+}

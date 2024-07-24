@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+a {
+  text-decoration: none;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: @primary;
+}
+.container {
+  max-width: 1280px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+.full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.sq(@size) {
+  width: @size;
+  min-width: @size;
+  height: @size;
+}
+.col-width(@value) {
+  width: calc(100% / 12 * @value - (8px / 12) * (12 - @value));
+}
+.selections {
+  user-select: none;
+  cursor: pointer;
+}
+.disable-scrollbar {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
+}

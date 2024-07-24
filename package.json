@@ -1,0 +1,19 @@
+{
+  "name": "web-chat",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite build && vite --port 3000"
+  },
+  "devDependencies": {
+    "less": "^4.2.0",
+    "vite": "^5.3.1"
+  },
+  "dependencies": {
+    "vite-plugin-handlebars": "^2.0.0"
+  }
+}
