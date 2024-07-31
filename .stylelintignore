@@ -3,3 +3,4 @@ src/css/pages/messages.less
 src/templates/btn/index.less
 src/templates/pages/chat/chat_item/index.less
 src/templates/pages/chat/profile/index.less
+src/css/entry.less

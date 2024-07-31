@@ -25,6 +25,19 @@ export default defineConfig({
       typescript: true,
     }),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        rewriteUrls: 'local',
+        relativeUrls: true,
+      }
+    }
+  },
   // server: {
   //   port: 3000
   // }
