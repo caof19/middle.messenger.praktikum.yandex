@@ -1,20 +1,19 @@
-<div class="profile profile--acive" >
-    <div class="profile__top" id="{{ avatarId }}">
-        <div class="profile__avatar">
-            <img src="{{ avatar }}" alt="">
+<div class="profile__top">
+    <div class="profile__avatar">
+        <img src="{{ avatar }}" alt="">
+    </div>
+    {{{ btnAvatarSection }}}
+</div>
+<div>
+    <div class="profile__row">
+        <div class="profile__info">
+            {{{ profileInfoSection }}}
+        </div>
+        <div class="profile__pass">
+            {{{ passInfoSection }}}
         </div>
     </div>
-    <form action="">
-        <div class="profile__row">
-            <div class="profile__info" id="{{ inputsId }}">
-
-            </div>
-            <div class="profile__pass" id="{{ passId }}">
-
-            </div>
-        </div>
-        <div class="profile__btn" id="profile__btn">
-
-        </div>
-    </form>
+    <div class="profile__btn" id="profile__btn">
+            {{{ btnSection }}}
+    </div>
 </div>

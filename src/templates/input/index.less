@@ -3,47 +3,68 @@
   border: none;
   outline: none;
   padding: 7px 12px;
-  color: #ffffff;
+  color: #fff;
   font-size: 15px;
   border-radius: 10px;
   max-width: 394px;
   width: 100vw;
+
   .chat__header & {
     display: block;
     width: 100%;
   }
+
   .chat__workflow & {
     width: 100%;
     display: block;
     max-width: unset;
   }
+
   &::placeholder {
     color: #bbb;
   }
+
   &__ {
     &text {
       display: block;
       font-size: 15px;
       font-weight: 500;
-      color: #ffffff;
+      color: #fff;
       margin-bottom: 15px;
+
       .profile & {
         width: 300px;
         margin-bottom: 0;
       }
     }
+
     &wrap {
       margin-bottom: 32px;
       cursor: pointer;
+      position: relative;
+
       .page--chats & {
         display: flex;
         width: 100%;
         margin-bottom: 0;
       }
+
       .profile & {
         margin-bottom: 12px;
         align-items: center;
         display: flex;
+      }
+    }
+
+    &err {
+      position: absolute;
+      font-size: 12px;
+      top: calc(100% + 10px);
+      color: @error;
+
+      .profile__pass &,
+      .profile__info & {
+        top: calc(100% - 3px);
       }
     }
   }

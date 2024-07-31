@@ -1,6 +1,5 @@
-<label for="{{ name }}" class="input__wrap">
-    {{#if text}}
-    <span class="input__text">{{ text }}</span>
-    {{/if}}
-    <input type="{{type}}" class="input" id="{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}">
-</label>
+{{#if text}}
+<span class="input__text">{{ text }}</span>
+{{/if}}
+<span class="input__err">{{ errText }}</span>
+<input type="{{type}}" class="input" id="{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}">

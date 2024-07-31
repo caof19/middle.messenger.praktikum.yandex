@@ -1,4 +1,4 @@
-import './pages/login/tmp.js'
-import './pages/register/tmp.js'
-import './pages/chat/tmp.js'
+import './pages/login/tmp'
+import './pages/register/tmp'
+import './pages/chat/tmp'
 
