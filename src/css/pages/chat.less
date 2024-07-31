@@ -3,16 +3,16 @@
   display: flex;
 
   &__ {
-    /* stylelint-disable unknown-word */
     &side {
       width: 33.3%;
       background-color: @second;
       height: 100vh;
       max-height: 100vh;
       overflow: auto;
+      /* stylelint-disable -- Reason for disabling Stylelint. */
       .disable-scrollbar;
+      /* stylelint-enable -- Reason for disabling Stylelint. */
     }
-    /* stylelint-enable unknown-word */
 
     &workflow {
       width: calc(100% - 33.3%);

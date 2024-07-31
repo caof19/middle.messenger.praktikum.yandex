@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "start": "vite build && vite --port 3000",
     "eslint": "node_modules/.bin/eslint .",
-    "ts": "tsc --noEmit"
+    "ts": "tsc --noEmit",
+    "stylelint": "stylelint '**/*.less'"
   },
   "devDependencies": {
     "@types/uuid": "^10.0.0",
