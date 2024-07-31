@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 create_template.sh
+add_empty_line.sh
 
 node_modules
 dist

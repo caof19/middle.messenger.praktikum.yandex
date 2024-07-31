@@ -1,5 +1,7 @@
+@import "../settings";
 .chat {
   display: flex;
+
   &__ {
     &side {
       width: 33.3%;
@@ -7,17 +9,22 @@
       height: 100vh;
       max-height: 100vh;
       overflow: auto;
-      .disable-scrollbar();
+      /* stylelint-disable -- Reason for disabling Stylelint. */
+      .disable-scrollbar;
+      /* stylelint-enable -- Reason for disabling Stylelint. */
     }
+
     &workflow {
       width: calc(100% - 33.3%);
     }
+
     &header {
       display: flex;
       padding: 9px 32px;
       align-items: center;
       gap: 28px;
     }
+
     &avatar {
       display: block;
       .sq(32px);
@@ -26,20 +33,33 @@
       user-select: none;
       cursor: pointer;
     }
+
     &workflow {
       display: flex;
       flex-direction: column;
       position: relative;
     }
+
     &inputs {
-      height: 55px;
-      display: flex;
-      align-items: center;
-      margin-top: auto;
-      margin-bottom: 0;
-      background-color: @second;
-      padding: 0 16px;
-      gap: 28px;
+      width: 100%;
+
+      .form {
+        height: 55px;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        margin-top: auto;
+        margin-bottom: 0;
+        background-color: @second;
+        gap: 28px;
+        flex-direction: row;
+        padding: 0 16px !important;
+
+        .input__err {
+          display: none;
+        }
+      }
     }
   }
 }
+

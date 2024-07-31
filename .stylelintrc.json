@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-less"
+  ],
+  "ignoreFiles": [
+    "dist/*"
+  ],
+  "rules": {
+    "function-url-quotes": "never",
+    "at-rule-no-unknown": [
+      null,
+      {
+        "ignoreAtRules": [
+          "debug"
+        ]
+      }
+    ],
+    "selector-class-pattern": null,
+    "color-function-notation": null
+  }
+}
