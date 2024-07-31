@@ -35,6 +35,7 @@
     &wrap {
       margin-bottom: 32px;
       cursor: pointer;
+      position: relative;
       .page--chats & {
         display: flex;
         width: 100%;
@@ -44,6 +45,16 @@
         margin-bottom: 12px;
         align-items: center;
         display: flex;
+      }
+    }
+    &err {
+      position: absolute;
+      font-size: 12px;
+      top: calc(100% + 10px);
+      color: @error;
+      .profile__pass &,
+      .profile__info & {
+        top: calc(100% - 3px);
       }
     }
   }
