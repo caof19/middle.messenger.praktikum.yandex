@@ -54,6 +54,7 @@ export default class Block {
     private _render(): void {
         this.addAttributes();
         this.addPlaceholder();
+        this.removeEvents();
 
         this.element.innerHTML = this.render();
 
@@ -89,6 +90,20 @@ export default class Block {
         Object.keys(events).forEach((eventName: string) => {
             this.element.addEventListener(eventName, events[eventName]);
         })
+    }
+
+    protected removeEvents() {
+        const {events} = this.meta.props;
+
+        if (!events) {
+            return;
+        }
+
+        Object.keys(events).forEach((eventName) => {
+          if (events[eventName] !== undefined) {
+            this.element?.removeEventListener(eventName, events[eventName]);
+          }
+        });
     }
 
     private addPlaceholder() {

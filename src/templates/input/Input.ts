@@ -21,6 +21,22 @@ export default class Input extends Block {
                         value: target.value,
                     });
                 },
+                focusout: (e:InputEvent) => {
+                    const target = e.target as HTMLInputElement;
+
+                    if(target.tagName !== 'INPUT') {
+                        return;
+                    }
+
+                    const form = new FormModel();
+                    const data = this.getData<{[key:string]: boolean | number | Array<string> | undefined}>('rules');
+
+                    if(!data) {
+                        return;
+                    }
+
+                    form.checkOnlyField(this, data)
+                }
             }
         }));
     }
@@ -36,23 +52,23 @@ export default class Input extends Block {
         })
     }
 
-    addEvents() {
-        super.addEvents();
-        
-        const input = this.element.querySelector('input');
-        if(!input) {
-            return;
-        } 
-        
-        input.addEventListener('blur', () => {
-            const form = new FormModel();
-            const data = this.getData<{[key:string]: boolean | number | Array<string> | undefined}>('rules');
-
-            if(!data) {
-                return;
-            }
-
-            form.checkOnlyField(this, data)
-        })
-    }
+    // addEvents() {
+    //     super.addEvents();
+    //
+    //     const input = this.element.querySelector('input');
+    //     if(!input) {
+    //         return;
+    //     }
+    //
+    //     input.addEventListener('blur', () => {
+    //         const form = new FormModel();
+    //         const data = this.getData<{[key:string]: boolean | number | Array<string> | undefined}>('rules');
+    //
+    //         if(!data) {
+    //             return;
+    //         }
+    //
+    //         form.checkOnlyField(this, data)
+    //     })
+    // }
 }
