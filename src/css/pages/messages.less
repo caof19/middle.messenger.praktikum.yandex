@@ -7,6 +7,7 @@
   flex-direction: column;
   justify-content: flex-end;
   gap: 32px;
+
   &__ {
     &avatar {
       .sq(32px);
@@ -16,28 +17,34 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
       img {
         max-height: 100%;
       }
     }
+
     &item {
       display: flex;
       align-items: center;
       gap: 24px;
+
       &--self {
         flex-direction: row-reverse;
       }
     }
+
     &val {
       background-color: #132942;
       border-radius: 12px;
-      color: #ffffff;
+      color: #fff;
       padding: 7px 25px;
       font-size: 15px;
+
       a {
         color: @accent;
         text-decoration: underline;
       }
+
       p+p {
         margin-top: 8px;
       }
