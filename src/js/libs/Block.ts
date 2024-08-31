@@ -1,6 +1,6 @@
 import EventBus from "./EventBus";
 import {v4 as makeUUID} from 'uuid';
-import { NestedObject} from "./Types.ts";
+import {ComplexBlock, NestedObject} from "./Types.ts";
 
 
 export default class Block {
@@ -15,7 +15,7 @@ export default class Block {
     public meta: { tagName: string, props: NestedObject };
     private eventBus: EventBus;
     protected element: HTMLElement;
-    private props: NestedObject;
+    protected props: NestedObject;
 
     constructor(tagName: string, props: NestedObject) {
         this.eventBus = new EventBus();
@@ -54,6 +54,7 @@ export default class Block {
     private _render(): void {
         this.addAttributes();
         this.addPlaceholder();
+        this.removeEvents();
 
         this.element.innerHTML = this.render();
 
@@ -89,6 +90,20 @@ export default class Block {
         Object.keys(events).forEach((eventName: string) => {
             this.element.addEventListener(eventName, events[eventName]);
         })
+    }
+
+    protected removeEvents() {
+        const {events} = this.meta.props;
+
+        if (!events) {
+            return;
+        }
+
+        Object.keys(events).forEach((eventName) => {
+          if (events[eventName] !== undefined) {
+            this.element?.removeEventListener(eventName, events[eventName]);
+          }
+        });
     }
 
     private addPlaceholder() {
@@ -210,6 +225,106 @@ export default class Block {
         Object.assign(this.props, {data: buffer});
     };
 
+    public updatePropsData(dataKey:string, value:unknown) {
+        const buffer = this.props.data
+
+        if (!buffer) {
+            return false;
+        }
+
+        buffer[dataKey] = value;
+
+
+        Object.assign(this.props, {data: buffer});
+    }
+
+    public addClassToWrap(className:string) {
+        if(!this.props.attr) {
+            return;
+        }
+        if(!this.props.attr.class) {
+            this.props.attr.class = '';
+        }
+
+        const classNameNow = this.props.attr.class;
+
+        this.updatePropsAttr('class', classNameNow + className);
+    }
+
+    public removeClass(className:string) {
+        if(!this.props.attr) {
+            return;
+        }
+        if(!this.props.attr.class) {
+            this.props.attr.class = '';
+        }
+
+        const classNameNow = this.props.attr.class;
+
+        this.updatePropsAttr('class', classNameNow.replace(className, ''));
+    }
+
+    public updatePropsChildren(childrenSectionName: string, blocks: Array<Block>) {
+        if (!childrenSectionName) {
+            return false;
+        }
+
+        const buffer = this.props.children;
+
+        if (!buffer) {
+            return false;
+        }
+
+        if(!buffer[childrenSectionName]) {
+            return false;
+        }
+
+        buffer[childrenSectionName] = blocks;
+
+        Object.assign(this.props, {children: buffer});
+    }
+
+    public addPropsChildren(childrenSectionName: string, block: Block, reverse:boolean = false) {
+        if (!childrenSectionName) {
+            return false;
+        }
+
+        const buffer = this.props.children;
+
+        if (!buffer) {
+            return false;
+        }
+
+        if(!buffer[childrenSectionName]) {
+            return false;
+        }
+
+        if (Array.isArray(buffer[childrenSectionName])) {
+            throw new Error('Expected ComplexBlock, but got Block[]');
+        } else {
+            // Теперь TypeScript знает, что это `ComplexBlock`
+            if(reverse) {
+                (buffer[childrenSectionName] as ComplexBlock).items.unshift(block);
+            } else {
+                (buffer[childrenSectionName] as ComplexBlock).items.push(block);
+            }
+        }
+
+        Object.assign(this.props, {children: buffer});
+    }
+
+    public updatePropsAttr(attrName: string, value: string) {
+        const buffer = this.props.attr;
+
+        if (!buffer) {
+            return false;
+        }
+
+        buffer[attrName] = value;
+
+        Object.assign(this.props, {attr: buffer});
+    }
+
     /* Метод для того чтоб положить в дейта данные, только не тригернуть прокси */
     public setDataWithoutRerender(nextProps: { [key: string]: unknown }) {
         if (!nextProps) {
@@ -255,6 +370,10 @@ export default class Block {
         this.getAllChildrens().forEach(item => {
             item.compile();
         });
+    }
+
+    public getAllPropsData() {
+        return this.props.data;
     }
 
     /* метод для компиляции всех вложенных Блоков */

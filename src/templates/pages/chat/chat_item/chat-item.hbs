@@ -1,7 +1,9 @@
-<div class="chat__logo">
-    <img src="{{img}}" alt="">
-</div>
-<div class="chat__content">
-    <div class="chat__name">{{name}}</div>
-    <div class="chat__desc">{{desc}}</div>
+<div class="chat__inner {{#if active}} chat__inner--active {{/if}}">
+    <div class="chat__logo">
+        <img src="{{img}}" alt="">
+    </div>
+    <div class="chat__content">
+        <div class="chat__name">{{name}}</div>
+        <div class="chat__desc">{{desc}}</div>
+    </div>
 </div>

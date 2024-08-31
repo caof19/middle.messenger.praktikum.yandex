@@ -1,12 +1,8 @@
 .messages {
-  padding: 16px;
-  padding-top: 67px;
   max-height: calc(100vh - 55px);
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 32px;
+  overflow: auto;
+  .disable-scrollbar;
 
   &__ {
     &avatar {
@@ -48,6 +44,14 @@
       p+p {
         margin-top: 8px;
       }
+    }
+    &inner {
+      padding: 16px;
+      padding-top: 67px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 32px;
     }
   }
 }
