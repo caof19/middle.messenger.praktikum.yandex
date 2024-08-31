@@ -246,7 +246,7 @@ export default class Block {
             this.props.attr.class = '';
         }
 
-        let classNameNow = this.props.attr.class;
+        const classNameNow = this.props.attr.class;
 
         this.updatePropsAttr('class', classNameNow + className);
     }
@@ -259,7 +259,7 @@ export default class Block {
             this.props.attr.class = '';
         }
 
-        let classNameNow = this.props.attr.class;
+        const classNameNow = this.props.attr.class;
 
         this.updatePropsAttr('class', classNameNow.replace(className, ''));
     }
@@ -289,7 +289,7 @@ export default class Block {
             return false;
         }
 
-        let buffer = this.props.children;
+        const buffer = this.props.children;
 
         if (!buffer) {
             return false;

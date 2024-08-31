@@ -14,20 +14,20 @@ export default class ChatItem extends Block {
             events: {
                 click: () => {
 
-                    let allLocalChats = chat.getWrapper().getChildren('chatListSection')
+                    const allLocalChats = chat.getWrapper().getChildren('chatListSection')
                     allLocalChats?.forEach(item => {
                         item.updatePropsData('active', false);
                     })
 
-                    let chatId = this.getData<number>('id');
+                    const chatId = this.getData<number>('id');
                     this.updatePropsData('active', true);
 
                     if(!chatId) {
                         return;
                     }
 
-                    let user = new User();
-                    let chatModel = new Chat();
+                    const user = new User();
+                    const chatModel = new Chat();
 
                     chatModel.connect(user.getId(), chatId);
                 },

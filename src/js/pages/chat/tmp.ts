@@ -115,9 +115,9 @@ chat.composit(() => {
     const avatarSaveBtn = new ProfileAvatar({
         events: {
             change: function (e:InputEvent) {
-                let files = (e.target as HTMLInputElement).files;
+                const files = (e.target as HTMLInputElement).files;
                 if(files && files.length) {
-                    let needleFile = files[0];
+                    const needleFile = files[0];
 
                     const user = new User();
                     const formData = new FormData();
@@ -150,14 +150,14 @@ chat.composit(() => {
         },
         events: {
             click: function () {
-                let chatName = prompt('Введите название нового чата');
+                const chatName = prompt('Введите название нового чата');
 
                 const chatModel = new Chat();
                 if (chatName) {
-                    let chatObj = {title: chatName}
+                    const chatObj = {title: chatName}
                     chatModel.addNew(chatObj).then(res => {
                         if (res.status === 200) {
-                            let addedChat = JSON.parse(res.responseText);
+                            const addedChat = JSON.parse(res.responseText);
 
                             chat.getWrapper().addPropsChildren('chatListSection',
                                 new ChatItem({
@@ -274,15 +274,15 @@ chat.composit(() => {
         },
         events: {
             keyup: function (e: Event) {
-                let needle = (e.target as HTMLInputElement).value;
-                let chatList = chat.getWrapper().getChildren('chatListSection');
+                const needle = (e.target as HTMLInputElement).value;
+                const chatList = chat.getWrapper().getChildren('chatListSection');
 
                 if (!chatList) {
                     return;
                 }
 
                 chatList.forEach(chatLocal => {
-                    let chatName = chatLocal.getData<string>('name');
+                    const chatName = chatLocal.getData<string>('name');
 
                     if (!chatName) {
                         return;
@@ -312,11 +312,11 @@ chat.composit(() => {
         },
         events: {
             click: function () {
-                let login = prompt('Введите логин');
+                const login = prompt('Введите логин');
 
                 if(login) {
-                    let user = new User();
-                    let chatModel = new Chat()
+                    const user = new User();
+                    const chatModel = new Chat()
 
                     user.searchUser(login).then(res => {
                         if(res.status === 200) {
@@ -324,7 +324,7 @@ chat.composit(() => {
                             if(!obj) {
                                 return;
                             }
-                            let userId = obj[0].id;
+                            const userId = obj[0].id;
 
                             chatModel.addNewMemberToChat(userId);
 
@@ -341,11 +341,11 @@ chat.composit(() => {
         },
         events: {
             click: function () {
-                let login = prompt('Введите логин');
+                const login = prompt('Введите логин');
 
                 if(login) {
-                    let user = new User();
-                    let chatModel = new Chat()
+                    const user = new User();
+                    const chatModel = new Chat()
 
                     user.searchUser(login).then(res => {
                         if(res.status === 200) {
@@ -353,7 +353,7 @@ chat.composit(() => {
                             if(!obj) {
                                 return;
                             }
-                            let userId = obj[0].id;
+                            const userId = obj[0].id;
 
                             chatModel.removeMemberFromChat(userId);
 
@@ -390,12 +390,12 @@ chat.addBeforeRender(async () => {
 
     /**/
     if (responseInfo.status == 200 && responseInfo.responseText) {
-        let userInfo = JSON.parse(responseInfo.responseText);
-        let userInputs = chat.getValueByLink('profileInputs');
+        const userInfo = JSON.parse(responseInfo.responseText);
+        const userInputs = chat.getValueByLink('profileInputs');
 
         user.setId(userInfo.id);
         userInputs.forEach(input => {
-            let key = input.getData<string>('name');
+            const key = input.getData<string>('name');
             if (key && userInfo[key] && userInfo[key].length > 0) {
                 input.setPropsData({value: userInfo[key]});
             }
@@ -415,7 +415,7 @@ chat.addBeforeRender(async () => {
     const allChatsResponse = await chats.getAll();
     if (allChatsResponse) {
         const chatList = JSON.parse(allChatsResponse.responseText);
-        let newChats: Array<Block> = []
+        const newChats: Array<Block> = []
         if (chatList.length) {
             chatList.forEach((chatServer: DefaultObjectString) => {
                 let lastMsg = 'Чат создан';

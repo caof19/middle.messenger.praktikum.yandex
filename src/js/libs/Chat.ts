@@ -47,7 +47,7 @@ export default class Chat {
         this.chatId = chatId;
         this.getToken().then(res => {
             if (res.status === 200) {
-                let token = JSON.parse(res.responseText).token;
+                const token = JSON.parse(res.responseText).token;
 
                 this.socket = new WebSocket(this.WSSDomain + userId + '/' + chatId + '/' + token);
 
@@ -106,7 +106,7 @@ export default class Chat {
     }
 
     public addNewMemberToChat(userId:number) {
-        let addToChat = {
+        const addToChat = {
             users: [userId],
             chatId: this.chatIdToAdd,
         };
@@ -115,7 +115,7 @@ export default class Chat {
     }
 
     public removeMemberFromChat(userId:number) {
-        let rmFromChat = {
+        const rmFromChat = {
             users: [userId],
             chatId: this.chatIdToAdd,
         };
@@ -136,8 +136,8 @@ export default class Chat {
     }
 
     private sendMsgToView(message: Array<DefaultObjectString> | DefaultObjectString) {
-        let msgList:Array<Block> = [];
-        let user = new User();
+        const msgList:Array<Block> = [];
+        const user = new User();
         if (Array.isArray(message)) {
             message.forEach(msg => {
                 msgList.unshift(new MessageItem({
@@ -151,7 +151,7 @@ export default class Chat {
 
             chat.getWrapper().updatePropsChildren('chatMsgsSection', msgList);
         } else {
-            let newMsg = new MessageItem({
+            const newMsg = new MessageItem({
                     data: {
                         avatar: RES_DOMAIN+this.usersAvatar[+message.user_id],
                         text: message.content,

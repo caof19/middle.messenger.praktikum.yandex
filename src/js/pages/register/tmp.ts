@@ -62,7 +62,7 @@ register.setWrapper(new Form(register.props, function(values) {
 
     user.signup(values).then(res => {
         if(res.status === 200 && res.responseText) {
-            let response = JSON.parse(res.responseText);
+            const response = JSON.parse(res.responseText);
 
             if(response.id) {
                 register.navigate('/messenger')
