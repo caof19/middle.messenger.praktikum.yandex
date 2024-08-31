@@ -10,6 +10,7 @@
       "sourceMap": true,
       "strictNullChecks": true,
       "strictPropertyInitialization": false,
-      "allowImportingTsExtensions": true
+      "allowImportingTsExtensions": true,
+      "lib": ["es2019", "dom"]
     }
 }

@@ -1,6 +1,6 @@
 .chat {
   &__ {
-    &item {
+    &inner {
       padding: 16px 20px;
       display: flex;
       gap: 28px;
@@ -17,6 +17,9 @@
         &:hover {
           background-color: @accent;
         }
+      }
+      &--hide {
+        display: none;
       }
     }
 

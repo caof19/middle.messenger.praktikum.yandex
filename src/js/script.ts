@@ -1,12 +1,9 @@
 import { toggleClass } from './methods.js';
 
-console.log(88);
-
 document.addEventListener('DOMContentLoaded', ():void => {
-  const avatarElem:Element|null = document.querySelector('.chat__avatar')
-  if (avatarElem) {
-    avatarElem.addEventListener('click', ():void => {
-      toggleClass('.profile', 'profile--active');
+    document.body.addEventListener('click', (e:MouseEvent):void => {
+      if(e.target && (e.target as HTMLElement).classList.contains('chat__avatar')) {
+        toggleClass('.profile', 'profile--active');
+      }
     });
-  }
 });

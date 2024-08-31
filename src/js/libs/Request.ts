@@ -1,5 +1,6 @@
+
 type requestOptions = {
-    data?: { [key: string]: string },
+    data?: { [key: string]: string | number | number[] } | FormData,
     method?: string,
     timeout?: number,
     headers?: { [key: string]: string },
@@ -14,13 +15,25 @@ class Req {
         DELETE: 'DELETE',
     } as const;
 
-    private queryStringify(data: { [key: string]: string }) {
+    private escapeString(str: string): string {
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+    private queryStringify(data: { [key: string]: string | number | number[] | FormData }) {
         if (typeof data !== 'object') {
             throw new Error('Data must be object');
         }
 
         const keys = Object.keys(data);
         return keys.reduce((result, key, index) => {
+            let value = data[key];
+            if (typeof value === 'string') {
+                value = this.escapeString(value); // Экранирование строки
+            }
             return `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`;
         }, '?');
     }
@@ -50,7 +63,7 @@ class Req {
         return this.request(url, {...options, method: Req.METHODS.DELETE}, options.timeout);
     };
 
-    public request = (url: string, options: requestOptions = {}, timeout = 5000) => {
+    public request = (url: string, options: requestOptions = {}, timeout = 5000):Promise<XMLHttpRequest> => {
         const {headers = {}, method, data} = options;
 
         return new Promise((resolve, reject) => {
@@ -64,7 +77,7 @@ class Req {
 
             xhr.open(
                 method,
-                isGet && !!data
+                isGet && !!data && !(data instanceof FormData)
                     ? `${url}${this.queryStringify(data)}`
                     : url,
             );
@@ -72,6 +85,10 @@ class Req {
             Object.keys(headers).forEach(key => {
                 xhr.setRequestHeader(key, headers[key]);
             });
+            if(!(data instanceof FormData)) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+            }
+            xhr.withCredentials = true;
 
             xhr.onload = function () {
                 resolve(xhr);
@@ -86,11 +103,21 @@ class Req {
             if (isGet || !data) {
                 xhr.send();
             } else {
-                xhr.send(JSON.stringify(data));
+                if(data instanceof FormData){
+                    xhr.send(data);
+                } else {
+                    const sanitizedData = Object.fromEntries(
+                        Object.entries(data).map(([key, value]) => [
+                            key,
+                            typeof value === 'string' ? this.escapeString(value) : value
+                        ])
+                    );
+
+                    xhr.send(JSON.stringify(sanitizedData));
+                }
             }
         });
     };
 }
 
-const req = new Req();
-req.get('https://google.com')
+export default Req;

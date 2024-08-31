@@ -5,8 +5,6 @@ export default class FormModel {
         const value = elem.getData<string>('value') || '';
         let errText = '';
 
-        console.log(rules);
-
         Object.keys(rules).forEach(rule => {
 
             if(rules[rule] === undefined) {
