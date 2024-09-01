@@ -1,5 +1,5 @@
 
-type requestOptions = {
+type RequestOptions = {
     data?: { [key: string]: string | number | number[] } | FormData,
     method?: string,
     timeout?: number,
@@ -38,32 +38,32 @@ class Req {
         }, '?');
     }
 
-    public get = (url: string, options: requestOptions = {
+    public get = (url: string, options: RequestOptions = {
         timeout: 0
     }) => {
 
         return this.request(url, {...options, method: Req.METHODS.GET}, options.timeout);
     };
 
-    public post = (url: string, options: requestOptions = {
+    public post = (url: string, options: RequestOptions = {
         timeout: 0
     }) => {
         return this.request(url, {...options, method: Req.METHODS.POST}, options.timeout);
     };
 
-    public put = (url: string, options: requestOptions = {
+    public put = (url: string, options: RequestOptions = {
         timeout: 0
     }) => {
         return this.request(url, {...options, method: Req.METHODS.PUT}, options.timeout);
     };
 
-    public delete = (url: string, options: requestOptions = {
+    public delete = (url: string, options: RequestOptions = {
         timeout: 0
     }) => {
         return this.request(url, {...options, method: Req.METHODS.DELETE}, options.timeout);
     };
 
-    public request = (url: string, options: requestOptions = {}, timeout = 5000):Promise<XMLHttpRequest> => {
+    public request = (url: string, options: RequestOptions = {}, timeout = 5000):Promise<XMLHttpRequest> => {
         const {headers = {}, method, data} = options;
 
         return new Promise((resolve, reject) => {
@@ -100,23 +100,26 @@ class Req {
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 
-            if (isGet || !data) {
-                xhr.send();
-            } else {
-                if(data instanceof FormData){
-                    xhr.send(data);
+             try {
+                if (isGet || !data) {
+                    xhr.send();
                 } else {
-                    const sanitizedData = Object.fromEntries(
-                        Object.entries(data).map(([key, value]) => [
-                            key,
-                            typeof value === 'string' ? this.escapeString(value) : value
-                        ])
-                    );
-
-                    xhr.send(JSON.stringify(sanitizedData));
+                    if (data instanceof FormData) {
+                        xhr.send(data);
+                    } else {
+                        const sanitizedData = Object.fromEntries(
+                            Object.entries(data).map(([key, value]) => [
+                                key,
+                                typeof value === 'string' ? this.escapeString(value) : value
+                            ])
+                        );
+                        xhr.send(JSON.stringify(sanitizedData));
+                    }
                 }
+            } catch (error) {
+                reject(new Error(`Failed to send request: ${(error as Error).message}`));
             }
-        });
+        })
     };
 }
 

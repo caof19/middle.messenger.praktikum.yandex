@@ -18,9 +18,4 @@ export type NestedObject = {
 export type DefaultObjectString = {
     [key: string]: string;
 }
-
-export type submitForm = {
-    apiUrl: string;
-    onsubmit: (e?: XMLHttpRequest) => void;
-}
 export default {}
