@@ -425,7 +425,7 @@ chat.addBeforeRender(async () => {
                 }
                 newChats.push(new ChatItem({
                     data: {
-                        img: chatServer.avatar,
+                        img: RES_DOMAIN+chatServer.avatar,
                         name: chatServer.title,
                         desc: lastMsg,
                         active: false,
