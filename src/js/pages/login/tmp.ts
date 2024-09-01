@@ -76,14 +76,17 @@ login.composit(function(this: Composition)  {
 login.setWrapper(new Form(login.props, function(values) {
     const user = new User();
 
-
-    user.signIn(values).then(res => {
-        if(res.status === 200 && res.responseText === 'OK') {
-            login.navigate('/messenger');
-        } else {
-            alert(JSON.parse(res.responseText).reason)
-        }
-    })
+    try {
+        user.signIn(values).then(res => {
+            if (res.status === 200 && res.responseText === 'OK') {
+                login.navigate('/messenger');
+            } else {
+                alert(JSON.parse(res.responseText).reason)
+            }
+        })
+    } catch (error) {
+        console.error('An error occurred while login processing:', error);
+    }
 }));
 login.addWrapperClass('login');
 login.addBodyClass('page--login');

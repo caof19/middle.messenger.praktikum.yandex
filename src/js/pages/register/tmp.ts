@@ -48,7 +48,6 @@ register.addBeforeRender(async () => {
         const user = new User();
 
         const isAuth = await user.isAuth();
-        console.log(isAuth);
 
         if(isAuth) {
             login.navigate('/messenger')
@@ -60,17 +59,21 @@ register.addBodyClass('page--register');
 register.setWrapper(new Form(register.props, function(values) {
     const user = new User();
 
-    user.signup(values).then(res => {
-        if(res.status === 200 && res.responseText) {
-            const response = JSON.parse(res.responseText);
+    try {
+        user.signup(values).then(res => {
+            if (res.status === 200 && res.responseText) {
+                const response = JSON.parse(res.responseText);
 
-            if(response.id) {
-                register.navigate('/messenger')
+                if (response.id) {
+                    register.navigate('/messenger')
+                }
+            } else {
+                alert(JSON.parse(res.responseText).reason)
             }
-        } else {
-            alert(JSON.parse(res.responseText).reason)
-        }
-    })
+        })
+    } catch (error) {
+        console.error('An error occurred while login processing:', error);
+    }
 }));
 
 export default register;

@@ -100,24 +100,20 @@ class Req {
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 
-             try {
-                if (isGet || !data) {
-                    xhr.send();
+            if (isGet || !data) {
+                xhr.send();
+            } else {
+                if (data instanceof FormData) {
+                    xhr.send(data);
                 } else {
-                    if (data instanceof FormData) {
-                        xhr.send(data);
-                    } else {
-                        const sanitizedData = Object.fromEntries(
-                            Object.entries(data).map(([key, value]) => [
-                                key,
-                                typeof value === 'string' ? this.escapeString(value) : value
-                            ])
-                        );
-                        xhr.send(JSON.stringify(sanitizedData));
-                    }
+                    const sanitizedData = Object.fromEntries(
+                        Object.entries(data).map(([key, value]) => [
+                            key,
+                            typeof value === 'string' ? this.escapeString(value) : value
+                        ])
+                    );
+                    xhr.send(JSON.stringify(sanitizedData));
                 }
-            } catch (error) {
-                reject(new Error(`Failed to send request: ${(error as Error).message}`));
             }
         })
     };

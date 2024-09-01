@@ -44,7 +44,11 @@ chat.composit(() => {
         function (value) {
             const actualChat = new Chat();
 
-            actualChat.sendMessage(value.message);
+            try {
+                actualChat.sendMessage(value.message);
+            } catch (error) {
+                console.error('An error occurred while message sent:', error);
+            }
 
             inputMsg.setPropsData({value: ''});
 
@@ -124,19 +128,23 @@ chat.composit(() => {
 
                     formData.append('avatar', needleFile, needleFile.name);
 
-                    user.changeAvatar(formData).then(res => {
-                        if(res.status === 200) {
-                            const userInfo = JSON.parse(res.responseText);
-                            const profile = chat.getValueByLink('profile')[0];
-                            if(!profile) {
-                                return;
-                            }
+                    try {
+                        user.changeAvatar(formData).then(res => {
+                            if (res.status === 200) {
+                                const userInfo = JSON.parse(res.responseText);
+                                const profile = chat.getValueByLink('profile')[0];
+                                if (!profile) {
+                                    return;
+                                }
 
-                            profile.setPropsData({avatar:RES_DOMAIN+userInfo.avatar})
-                        } else {
-                            alert(JSON.parse(res.responseText).reason);
-                        }
-                    });
+                                profile.setPropsData({avatar: RES_DOMAIN + userInfo.avatar})
+                            } else {
+                                alert(JSON.parse(res.responseText).reason);
+                            }
+                        });
+                    } catch (error) {
+                        console.error('An error occurred when change user avatar:', error);
+                    }
                 }
             }
         }
@@ -155,23 +163,27 @@ chat.composit(() => {
                 const chatModel = new Chat();
                 if (chatName) {
                     const chatObj = {title: chatName}
-                    chatModel.addNew(chatObj).then(res => {
-                        if (res.status === 200) {
-                            const addedChat = JSON.parse(res.responseText);
+                    try {
+                        chatModel.addNew(chatObj).then(res => {
+                            if (res.status === 200) {
+                                const addedChat = JSON.parse(res.responseText);
 
-                            chat.getWrapper().addPropsChildren('chatListSection',
-                                new ChatItem({
-                                    data: {
-                                        img: '',
-                                        name: chatName,
-                                        desc: 'Чат создан',
-                                        active: false,
-                                        id: addedChat.id,
-                                        hide: false,
-                                    }
-                                }), true)
-                        }
-                    });
+                                chat.getWrapper().addPropsChildren('chatListSection',
+                                    new ChatItem({
+                                        data: {
+                                            img: '',
+                                            name: chatName,
+                                            desc: 'Чат создан',
+                                            active: false,
+                                            id: addedChat.id,
+                                            hide: false,
+                                        }
+                                    }), true)
+                            }
+                        });
+                    } catch (error) {
+                        console.error('An error occurred when added chat:', error);
+                    }
                 }
             }
         }
@@ -187,14 +199,17 @@ chat.composit(() => {
         }
     }, (valuse) => {
         const user = new User();
-
-        user.changeProfile(valuse).then(res => {
-            if (res.status === 200) {
-                alert('Данные профиля успешно поменяли')
-            } else {
-                alert(JSON.parse(res.responseText).reason);
-            }
-        })
+        try {
+            user.changeProfile(valuse).then(res => {
+                if (res.status === 200) {
+                    alert('Данные профиля успешно поменяли')
+                } else {
+                    alert(JSON.parse(res.responseText).reason);
+                }
+            })
+        } catch (error) {
+            console.error('An error occurred when user profile change:', error);
+        }
     })
 
     const formPass = new Form({
@@ -208,16 +223,20 @@ chat.composit(() => {
     }, function (values) {
         const user = new User();
 
-        user.changePass(values).then(res => {
-            if (res.status === 200) {
-                alert('Успешная смена пароля');
-                passFields.forEach(input => {
-                    input.setPropsData({value: ''})
-                })
-            } else {
-                alert(JSON.parse(res.responseText).reason);
-            }
-        })
+        try {
+            user.changePass(values).then(res => {
+                if (res.status === 200) {
+                    alert('Успешная смена пароля');
+                    passFields.forEach(input => {
+                        input.setPropsData({value: ''})
+                    })
+                } else {
+                    alert(JSON.parse(res.responseText).reason);
+                }
+            })
+        } catch (error) {
+            console.error('An error occurred when password change:', error);
+        }
     })
 
     const logOutBtn = new Button({
@@ -228,7 +247,11 @@ chat.composit(() => {
             click() {
                 const user = new User();
 
-                user.logout()
+                try {
+                    user.logout()
+                } catch (error) {
+                    console.error('An error occurred when user logout:', error);
+                }
                 chat.navigate('/');
             }
         }
@@ -318,18 +341,26 @@ chat.composit(() => {
                     const user = new User();
                     const chatModel = new Chat()
 
-                    user.searchUser(login).then(res => {
-                        if(res.status === 200) {
-                            const obj = JSON.parse(res.responseText);
-                            if(!obj) {
-                                return;
+                    try {
+                        user.searchUser(login).then(res => {
+                            if (res.status === 200) {
+                                const obj = JSON.parse(res.responseText);
+                                if (!obj) {
+                                    return;
+                                }
+                                const userId = obj[0].id;
+
+                                try {
+                                    chatModel.addNewMemberToChat(userId);
+                                } catch (error) {
+                                    console.error('An error when adding a user:', error);
+                                }
+
                             }
-                            const userId = obj[0].id;
-
-                            chatModel.addNewMemberToChat(userId);
-
-                        }
-                    })
+                        })
+                    } catch (error) {
+                        console.error('An user search error:', error);
+                    }
                 }
             }
         }
@@ -347,18 +378,26 @@ chat.composit(() => {
                     const user = new User();
                     const chatModel = new Chat()
 
-                    user.searchUser(login).then(res => {
-                        if(res.status === 200) {
-                            const obj = JSON.parse(res.responseText);
-                            if(!obj) {
-                                return;
+                    try {
+                        user.searchUser(login).then(res => {
+                            if (res.status === 200) {
+                                const obj = JSON.parse(res.responseText);
+                                if (!obj) {
+                                    return;
+                                }
+                                const userId = obj[0].id;
+
+                                try {
+                                    chatModel.removeMemberFromChat(userId);
+                                } catch (error) {
+                                    console.error('An error occurred when user delete:', error);
+                                }
+
                             }
-                            const userId = obj[0].id;
-
-                            chatModel.removeMemberFromChat(userId);
-
-                        }
-                    })
+                        })
+                    } catch (error) {
+                        console.error('An error occurred when user search:', error);
+                    }
                 }
             }
         }
@@ -386,57 +425,67 @@ chat.addBeforeRender(async () => {
     const user = new User();
     const chats = new Chat();
 
-    const responseInfo = await user.getInfo();
+    try {
+        const responseInfo = await user.getInfo();
 
-    /**/
-    if (responseInfo.status == 200 && responseInfo.responseText) {
-        const userInfo = JSON.parse(responseInfo.responseText);
-        const userInputs = chat.getValueByLink('profileInputs');
+        /**/
+        if (responseInfo.status == 200 && responseInfo.responseText) {
+            const userInfo = JSON.parse(responseInfo.responseText);
+            const userInputs = chat.getValueByLink('profileInputs');
 
-        user.setId(userInfo.id);
-        userInputs.forEach(input => {
-            const key = input.getData<string>('name');
-            if (key && userInfo[key] && userInfo[key].length > 0) {
-                input.setPropsData({value: userInfo[key]});
+            user.setId(userInfo.id);
+            userInputs.forEach(input => {
+                const key = input.getData<string>('name');
+                if (key && userInfo[key] && userInfo[key].length > 0) {
+                    input.setPropsData({value: userInfo[key]});
+                }
+            })
+
+            const profile = chat.getValueByLink('profile')[0];
+            if (!profile) {
+                return;
             }
-        })
 
-        const profile = chat.getValueByLink('profile')[0];
-        if(!profile) {
+            profile.setPropsData({avatar: RES_DOMAIN + userInfo.avatar})
+        } else {
+            chat.navigate('/');
             return;
         }
-
-        profile.setPropsData({avatar:RES_DOMAIN+userInfo.avatar})
-    } else {
-        chat.navigate('/');
-        return;
+    } catch (error) {
+        console.error('An error occurred while processing user information:', error);
     }
 
-    const allChatsResponse = await chats.getAll();
-    if (allChatsResponse) {
-        const chatList = JSON.parse(allChatsResponse.responseText);
-        const newChats: Array<Block> = []
-        if (chatList.length) {
-            chatList.forEach((chatServer: DefaultObjectString) => {
-                let lastMsg = 'Чат создан';
-                if (chatServer.last_message) {
-                    const lastMessage = chatServer.last_message as unknown as { content: string };
-                    lastMsg = lastMessage.content;
-                }
-                newChats.push(new ChatItem({
-                    data: {
-                        img: RES_DOMAIN+chatServer.avatar,
-                        name: chatServer.title,
-                        desc: lastMsg,
-                        active: false,
-                        id: chatServer.id
+    try {
+        const allChatsResponse = await chats.getAll();
+
+        if (allChatsResponse) {
+            const chatList = JSON.parse(allChatsResponse.responseText);
+            const newChats: Array<Block> = []
+            if (chatList.length) {
+                chatList.forEach((chatServer: DefaultObjectString) => {
+                    let lastMsg = 'Чат создан';
+                    if (chatServer.last_message) {
+                        const lastMessage = chatServer.last_message as unknown as { content: string };
+                        lastMsg = lastMessage.content;
                     }
-                }))
-            })
-            chat.getWrapper().updatePropsChildren('chatListSection', newChats);
+                    newChats.push(new ChatItem({
+                        data: {
+                            img: RES_DOMAIN + chatServer.avatar,
+                            name: chatServer.title,
+                            desc: lastMsg,
+                            active: false,
+                            id: chatServer.id
+                        }
+                    }))
+                })
+                chat.getWrapper().updatePropsChildren('chatListSection', newChats);
+            }
         }
+    } catch (error) {
+        console.error('An error occurred while processing chat information:', error);
     }
 })
+
 chat.setWrapper(new ChatWrapper(chat.props));
 chat.addWrapperClass('chat');
 chat.addBodyClass('page--chats');
