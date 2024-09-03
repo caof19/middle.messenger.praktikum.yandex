@@ -1,12 +1,18 @@
-import { textConst } from './lang.js';
+import {textConst} from './lang.js';
 import Input from "../../../templates/input/Input";
 import Button from "../../../templates/btn/Btn";
-import Form from "../../../templates/form/Form";
+import Composition from "../../libs/Composition.ts";
+import Form from "../../../templates/form/Form.ts";
+import User from "../../libs/User.ts";
+import login from "../login/tmp.ts";
 
-document.addEventListener('DOMContentLoaded', () => {
-  const {inputs} = textConst;
 
-    const inputsBlocks:Array<Input> = []
+const register = new Composition();
+
+register.composit(() => {
+    const {inputs} = textConst;
+
+    const inputsBlocks: Array<Input> = []
 
     inputs.forEach(input => {
         inputsBlocks.push(
@@ -29,12 +35,45 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     })
 
-    const form = new Form({
+    return {
         children: {
             inputSection: inputsBlocks,
             buttonSection: [button]
         }
-    });
+    }
+})
 
-    form.insertToDOM('.register');
-});
+register.addBeforeRender(async () => {
+    setTimeout(async () => {
+        const user = new User();
+
+        const isAuth = await user.isAuth();
+
+        if(isAuth) {
+            login.navigate('/messenger')
+        }
+    }, 1000)
+})
+register.addWrapperClass('register');
+register.addBodyClass('page--register');
+register.setWrapper(new Form(register.props, function(values) {
+    const user = new User();
+
+    try {
+        user.signup(values).then(res => {
+            if (res.status === 200 && res.responseText) {
+                const response = JSON.parse(res.responseText);
+
+                if (response.id) {
+                    register.navigate('/messenger')
+                }
+            } else {
+                alert(JSON.parse(res.responseText).reason)
+            }
+        })
+    } catch (error) {
+        console.error('An error occurred while login processing:', error);
+    }
+}));
+
+export default register;

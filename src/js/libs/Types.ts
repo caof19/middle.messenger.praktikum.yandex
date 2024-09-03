@@ -10,7 +10,7 @@ export type ChildrenType = Record<string, Array<Block> | ComplexBlock>;
 
 export type NestedObject = {
     data?: { [key: string]: unknown };
-    events?: { [key: string]: () => void };
+    events?: { [key: string]: (e?: Event) => void };
     attr?: { [key: string]: string };
     children?: ChildrenType;
 }

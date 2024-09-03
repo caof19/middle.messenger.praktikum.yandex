@@ -12,69 +12,16 @@ export default {
     chats: [
         {
             img: '',
-            name: 'Приветствие',
-            desc: 'Доборого времени суток, вы здесь потому что вы ывавфыаываыв',
-            chatId: 1,
-            active: false,
-        },
-        {
-            img: '',
-            name: 'Зачем нужны телеграм боты?',
-            desc: 'Доборого времени суток, вы здесь потому что вы ывавфыаываыв',
-            chatId: 2,
-            active: true,
-        },
-        {
-            img: '',
-            name: 'Обычные боты для проверки подписок',
-            desc: 'Доборого времени суток, вы здесь потому что вы ывавфыаываыв',
-            chatId: 3,
-            active: false,
-        },
-        {
-            img: '',
-            name: 'Боты для автоматизации / сигналов',
-            desc: 'Доборого времени суток, вы здесь потому что вы ывавфыаываыв',
-            chatId: 4,
-            active: false,
-        },
-        {
-            img: '',
-            name: 'Боты FAQ',
-            desc: 'Доборого времени суток, вы здесь потому что вы ывавфыаываыв',
-            chatId: 5,
-            active: false,
-        },
-        {
-            img: '',
-            name: 'Интеграция разных сервисов',
-            desc: 'Доборого времени суток, вы здесь потому что вы ывавфыаываыв',
-            chatId: 6,
-            active: false,
-        },
-        {
-            img: '',
-            name: 'Общение с клиентами',
-            desc: 'Доборого времени суток, вы здесь потому что вы ывавфыаываыв',
-            chatId: 7,
+            name: '',
+            desc: '',
             active: false,
         },
     ],
     messageList: [
         {
-            avatar: 'https://img.freepik.com/premium-vector/bearded-man-avatar-man-vector-portrait_9385-36.jpg',
-            text: '<p>Тестирование</p>',
+            avatar: '',
+            text: '',
             self: true,
-        },
-        {
-            avatar: 'https://img.freepik.com/premium-vector/male-avatar-black-hipster-face-with-modern-hairstyle-isolated-white-background_80590-19954.jpg',
-            text: '<p>Тестирование</p><p>Абзацев</p>',
-            self: false,
-        },
-        {
-            avatar: 'https://img.freepik.com/premium-vector/male-avatar-black-hipster-face-with-modern-hairstyle-isolated-white-background_80590-19954.jpg',
-            text: '<p>Тестирование <a href="https://google.com" target="_blank">ссылок</a></p>',
-            self: false,
         },
     ],
     profile: {

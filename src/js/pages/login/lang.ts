@@ -10,6 +10,7 @@ export const textConst = {
       type: 'text',
       name: 'login',
       placeholder: 'Введите логин',
+      value: 'alexttst',
       rules: {
         minWidth: 3,
         maxWidth: 20,
@@ -24,6 +25,7 @@ export const textConst = {
       type: 'password',
       name: 'password',
       placeholder: 'Введите пароль',
+      value: 'Qwerty1234',
       rules: {
         minWidth: 8,
         maxWidth: 40,

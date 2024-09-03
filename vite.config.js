@@ -9,10 +9,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         login: path.resolve(__dirname, 'src/index.html'),
-        register: path.resolve(__dirname, 'src/register.html'),
-        chats: path.resolve(__dirname, 'src/chats.html'),
-        404: path.resolve(__dirname, 'src/404.html'),
-        '5xx': path.resolve(__dirname, 'src/50x.html'),
       },
     },
   },

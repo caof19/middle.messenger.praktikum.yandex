@@ -4,7 +4,7 @@ import FormModel from "../../js/models/FormModel";
 import {DefaultObjectString, NestedObject} from "../../js/libs/Types.ts";
 
 export default class Form extends Block{
-    constructor(props:NestedObject) {
+    constructor(props:NestedObject, submitAdditional?:(e:{[key:string]:string}) => void) {
         super('div', Object.assign(props, {
             events: {
                 submit: (e:SubmitEvent) => {
@@ -32,7 +32,11 @@ export default class Form extends Block{
                          values[key] = val;
                      })
 
-                    console.log(values)
+
+
+                    if(submitAdditional) {
+                       submitAdditional(values);
+                    }
                 }
             }
         }));

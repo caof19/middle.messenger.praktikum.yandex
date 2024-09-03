@@ -9,6 +9,7 @@
       height: 100vh;
       max-height: 100vh;
       overflow: auto;
+      position: relative;
       /* stylelint-disable -- Reason for disabling Stylelint. */
       .disable-scrollbar;
       /* stylelint-enable -- Reason for disabling Stylelint. */
@@ -32,6 +33,10 @@
       background-color: @placeholder;
       user-select: none;
       cursor: pointer;
+
+      input {
+        display: none;
+      }
     }
 
     &workflow {
@@ -59,6 +64,27 @@
           display: none;
         }
       }
+    }
+    &context {
+      position: absolute;
+      background-color: @primary;
+      color: @placeholder;
+      display: none;
+      white-space: nowrap;
+      font-size: 12px;
+      z-index: 500;
+      > * {
+        transition: all .5s;
+        padding: 16px;
+        cursor: pointer;
+        &:hover {
+          background: @accent;
+        }
+      }
+    }
+    &change {
+      display: inline-block;
+      white-space: nowrap;
     }
   }
 }
