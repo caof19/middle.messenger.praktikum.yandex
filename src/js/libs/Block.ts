@@ -1,4 +1,4 @@
-import EventBus from "./EventBus";
+import EventBus from "./EventBus.ts";
 import {v4 as makeUUID} from 'uuid';
 import {ComplexBlock, NestedObject} from "./Types.ts";
 

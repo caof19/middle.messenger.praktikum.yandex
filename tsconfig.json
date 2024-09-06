@@ -1,16 +1,23 @@
 {
-    "compilerOptions": {
-      "outDir": "dist",
-      "target": "es2016",
-      "declaration": false,
-      "module": "commonjs",
-      "noImplicitAny": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "sourceMap": true,
-      "strictNullChecks": true,
-      "strictPropertyInitialization": false,
-      "allowImportingTsExtensions": true,
-      "lib": ["es2019", "dom"]
-    }
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": false,
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "allowImportingTsExtensions": true,
+    "lib": [
+      "es2019",
+      "dom"
+    ]
+  },
+  "exclude": [
+    "src/tests/Block.test.ts"
+  ]
 }
