@@ -35,9 +35,9 @@ class Router {
         this.use(uri);
     }
 
-    // private notFoundPage() {
-    //
-    // }
+    public getAllRoutes() {
+        return this.routes;
+    }
 }
 
 export default Router;
